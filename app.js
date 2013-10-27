@@ -12,7 +12,7 @@ var prepare_data = function (req) {
         method: req.method,
         url: req.url,
         query: req.query,
-        body: req.body,
+        body: JSON.parse(req.body),
     }
 };
 
