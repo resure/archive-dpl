@@ -1,14 +1,10 @@
 var express = require('express');
+var bunyan = require('bunyan');
+var logger = bunyan.createLogger({name: "main"});
 var app = express();
 
 app.use(function (req, res, next) {
-    var respond = {
-        method: req.method,
-        params: req.params,
-        query: req.query,
-        body: req.body
-    };
-    console.log(respond);
+    logger.info({ req: bunyan.stdSerializers.req(req) }, 'start');
     next();
 });
 
