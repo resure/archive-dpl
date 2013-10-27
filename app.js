@@ -8,11 +8,19 @@ var firebaseRef = process.env.FIREBASE_URL;
 var fire = new Firebase(firebaseRef);
 
 var prepare_data = function (req) {
+    var body;
+
+    try {
+        body = JSON.parse(req.body);
+    } catch (e) {
+        body = req.body;
+    }
+
     return {
         method: req.method,
         url: req.url,
         query: req.query,
-        body: JSON.parse(req.body),
+        body: body
     }
 };
 
