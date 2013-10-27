@@ -5,6 +5,6 @@
   "private": true,
   "dependencies": {
     "express": "3.x",
-    "bunyan": "0.22.x"
+    "firebase": "0.6.x"
   }
 }
