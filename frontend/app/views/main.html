@@ -1,24 +1,42 @@
 <div class="header">
-	<ul class="nav nav-pills pull-right">
-	</ul>
-	<h3 class="text-muted">dplx-frontent</h3>
+  <h3 class="text-muted">ASFX/DPL</h3>
 </div>
 
 <div class="row">
-  <p>Current version: <strong>{{current}}</strong></p>
-  <p>Current status: {{status}}
-  <table class="table table-striped table-bordered">
+  <div ng-class="{'idle':'status alert alert-success', 'deploy':'status alert alert-info', 'deploying':'status alert alert-info', 'failed':'status alert alert-danger'}[status.action]">
+    <div ng-switch="status.action">
+      <div ng-switch-when="idle">IDLE</div>
+      <div ng-switch-when="deploy">DEPLOY STARTED</div>
+      <div ng-switch-when="deploying">DEPLOYING</div>
+      <div ng-switch-when="failed">DEPLOY FAILED</div>
+    </div>
+  </div>
+  <table class="table table-bordered table-hover">
+    <thead>
+    <tr>
+      <th>Build</th>
+      <th>Commit</th>
+      <th>Status</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
     <tr ng-repeat="version in versions">
-      <td>{{version.commit}}</td>
+      <td><a href="{{version.build_url}}" target="_blank">{{version.number}}</a></td>
+      <td><a href="{{version.compare_url}}" target="_blank" title="{{version.committer_name}} <{{version.committer_email}}>&#013;{{version.committed_at}}&#013;{{version.message}}">{{version.commit.substring(0,18)}}</a></td>
       <td>
-        <span ng-class="{0:'label label-success', 1:'label label-info', 2:'label label-danger'}[version.result]">
-          {{version.result_message}}
+        <span title="{{version.started_at}}" ng-class="{0:'label label-success', 1:'label label-info', 2:'label label-danger'}[version.status]">
+          {{version.status_message}}
         </span>
+      </td>
+      <td>
+        <span class="label label-success" ng-show="version.commit == current">Deployed</span>
+        <button class="btn btn-xs btn-default" ng-show="version.commit != current && status.action == 'idle'" ng-click="deploy(version.commit)">Deploy</button>
+        <span class="label label-default" ng-show="version.commit != current && status.action != 'idle'">Deploy in progress</span>
       </td>
     </tr>
   </table>
 </div>
 
 <div class="footer">
-  <p>asfx</p>
+  <p><a href="http://asfx.net">ASFX.NET</a></p>
 </div>
