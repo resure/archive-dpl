@@ -41,10 +41,12 @@ var deploy = function (commit, callback) {
     return cmd;
 };
 
-app.get('/*', function (req, res) {
-    var data = prepare_data(req);
-    res.send(data);
-});
+// app.get('/*', function (req, res) {
+//     var data = prepare_data(req);
+//     res.send(data);
+// });
+
+app.use('/', express.static(__dirname + '/frontend/dist'));
 
 app.post('/*', function (req, res) {
     var data = prepare_data(req);
