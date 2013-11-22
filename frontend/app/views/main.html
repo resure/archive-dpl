@@ -20,11 +20,11 @@
       <th>Actions</th>
     </tr>
     </thead>
-    <tr ng-repeat="version in versions">
+    <tr ng-repeat="version in versions | orderBy: 'number':true">
       <td><a href="{{version.build_url}}" target="_blank">{{version.number}}</a></td>
       <td><a href="{{version.compare_url}}" target="_blank" title="{{version.committer_name}} <{{version.committer_email}}>&#013;{{version.committed_at}}&#013;{{version.message}}">{{version.commit.substring(0,18)}}</a></td>
       <td>
-        <span title="{{version.started_at}}" ng-class="{0:'label label-success', 1:'label label-info', 2:'label label-danger'}[version.status]">
+        <span title="{{version.started_at}}" ng-class="{0:'label label-success', 1:'label label-warning', 2:'label label-danger'}[version.status]">
           {{version.status_message}}
         </span>
       </td>
