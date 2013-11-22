@@ -30,7 +30,7 @@
       </td>
       <td>
         <span class="label label-success" ng-show="version.commit == current">Deployed</span>
-        <button class="btn btn-xs btn-default" ng-show="version.commit != current && status.action == 'idle'" ng-click="deploy(version.commit)">Deploy</button>
+        <button class="btn btn-xs" ng-class="{0:'btn-info', 1:'btn-warning'}[version.status]" ng-show="version.commit != current && status.action == 'idle'" ng-click="deploy(version.commit)">Deploy</button>
         <span class="label label-default" ng-show="version.commit != current && status.action != 'idle'">Deploy in progress</span>
       </td>
     </tr>
